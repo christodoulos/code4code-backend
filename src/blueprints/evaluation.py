@@ -1,7 +1,7 @@
 from flask import Blueprint, request, Response, jsonify
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from src.models.evaluation import EvalQuestion
-from src.models.user import User
+from src.models.user import User, UserEvaluation
 import json
 import datetime 
 
@@ -32,10 +32,10 @@ def get_eval_questions(course):
 def setUserEvaluations():
     user = User.get_user_by_email(get_jwt_identity())
     data = request.json
-    print(data)
-    # user.evaluations.append(data)
-    user.update(evaluations=[data])
-    # user.save()
+    evaluation = UserEvaluation(**data)
+    user.evaluations.append(evaluation)
+    # user.update(evaluations=[data])
+    user.save()
     user.reload()
     user = user.to_mongo_dict()
     return Response(json.dumps({"user": user, "msg": "User profile is updated"}, default=serialize_datetime), status=200)

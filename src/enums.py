@@ -21,3 +21,40 @@ class UserLevel(Enum):
     INTERMEDIATE = "intermediate"
     EXPERT = "expert"
     NONE = "none"
+
+pyChapter = [
+	"python string formatting",
+   	"python strings",
+    "python numbers",
+    "python operators",
+    "integer types",
+	"python booleans",	 
+	"python dates",
+	"python dictionaries",
+	"python lists",
+    "basic functions",
+    "built in functions",
+	"python if…else",
+	"python loops",
+ 	"lists",
+	"python tuples",
+   	"python while loops"    	
+	"python casting",   
+    "python functions",
+    "python math",
+   	"python sets"
+]  
+
+jsChapter = [
+	"data types",
+	"strings",
+    "syntax variables scope"        
+	"numbers",
+   	"objects",
+    "expressions and operators",
+    "arrays",
+    "control structures",
+    "functions",
+    "scope",
+    "classes"    
+]

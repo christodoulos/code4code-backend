@@ -1,6 +1,8 @@
 from src.config import MONGO_DBNAME
 from src.enums import UserCourse, UserLevel
 import mongoengine as me
+from src.models.exercise import Exercise
+from src.models.user import User
 
 
 class Answer(me.EmbeddedDocument):

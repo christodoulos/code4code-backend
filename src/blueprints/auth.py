@@ -3,7 +3,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from src.config import GOOGLE_AUDIENCE
-from src.models.user import User
+from src.models.user import User, UserRoles
 import json
 import datetime 
 
@@ -56,11 +56,19 @@ def google_auth():
 def update_profile():
     user = User.get_user_by_email(get_jwt_identity())
     data = request.json
-    # user.update(**data, isEnabled=True)
-    user.update(category=[data["category"]], isEnabled=True)
+    role = UserRoles(
+        category = "learner" if "learner" in data["category"] else "instructor",
+        course =  "javascript" if "javascript" in data["course"] else "python",
+        isEnabled = True,
+    )
+    user.roles.append(role)
+    # user.category.append(data["category"])
+    user.save()
+    user.update(isEnabled=True)
+    # user.update(category=[data["category"]], isEnabled=True)
     user.reload()
     user = user.to_mongo_dict()
-    return Response(json.dumps({"user": user, "msg": "User profile is updated"}), status=200)
+    return Response(json.dumps({"user": user, "msg": "User profile is updated"}, default=serialize_datetime), status=200)
 
 
 @auth.route("/user", methods=["GET"])
